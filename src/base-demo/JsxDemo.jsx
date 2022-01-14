@@ -2,15 +2,6 @@ import React, { Component } from "react";
 
 export class JsxDemo extends Component {
   render() {
-    // 对象
-    // const obj = { a: 1 };
-
-    // 数组
-    const arr = [1, 2, 3];
-
-    // 布尔值
-    const bool = true;
-
     // JSX 对象
     const jsxObj = <span>jsx-obj</span>;
 
@@ -23,11 +14,9 @@ export class JsxDemo extends Component {
           字符串与数字：{"hello"} - {8}
         </h2>
 
-        {/* 直接使用 js 对象会报错 */}
-        {/* react-dom.development.js:13231 Uncaught Error: Objects are not valid as a React child */}
-        {/* <h2>{{ a: 1 }}</h2> */}
+        <h2>JSX 对象：{jsxObj}</h2>
 
-        <h2>jsx 对象：{jsxObj}</h2>
+        <h2>函数：{formatStr("hello")}</h2>
 
         {/* 数组会被作为一组子元素对待 */}
         <h2>数组：{[1, 2, 3]}</h2>
@@ -39,11 +28,13 @@ export class JsxDemo extends Component {
         </ul>
 
         {/* 布尔值、null、undefined 会被忽略不显示 */}
-        <h2>布尔值：{bool}</h2>
-        <h2>null：{bool}</h2>
-        <h2>undefined：{bool}</h2>
+        <h2>布尔值：{true}</h2>
+        <h2>null：{null}</h2>
+        <h2>undefined：{undefined}</h2>
 
-        <h2>函数：{formatStr("hello")}</h2>
+        {/* 直接使用原生 js 对象会报错 */}
+        {/* react-dom.development.js:13231 Uncaught Error: Objects are not valid as a React child */}
+        {/* <h2>{{ a: 1 }}</h2> */}
       </div>
     );
   }
