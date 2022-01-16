@@ -3,7 +3,8 @@ import React, { Component } from "react";
 // import { ClassComDemo } from "./base-demo/ClassComDemo";
 // import { FuncComDemo } from "./base-demo/FuncComDemo";
 // import { SetStateDemo } from "./base-demo/SetStateDemo";
-import { UserPage, HomePage } from "./base-demo/CompositionComDemo";
+// import { UserPage, HomePage } from "./base-demo/CompositionComDemo";
+import { ClassAddDemo, FuncMinusDemo } from "./redux-demo";
 
 export class App extends Component {
   render() {
@@ -20,8 +21,11 @@ export class App extends Component {
 
         {/* <SetStateDemo></SetStateDemo> */}
 
-        <UserPage></UserPage>
+        {/* <UserPage></UserPage> */}
         {/* <HomePage></HomePage> */}
+
+        <FuncMinusDemo></FuncMinusDemo>
+        <ClassAddDemo></ClassAddDemo>
       </div>
     );
   }
