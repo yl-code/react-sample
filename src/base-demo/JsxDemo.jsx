@@ -1,3 +1,7 @@
+/**
+ * jsx 插值表达式小 demo
+ */
+
 import React, { Component } from "react";
 
 export class JsxDemo extends Component {
