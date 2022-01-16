@@ -2,13 +2,15 @@ import React, { Component } from "react";
 // import { JsxDemo } from "./base-demo/JsxDemo";
 // import { ClassComDemo } from "./base-demo/ClassComDemo";
 // import { FuncComDemo } from "./base-demo/FuncComDemo";
-import { SetStateDemo } from "./base-demo/SetStateDemo";
+// import { SetStateDemo } from "./base-demo/SetStateDemo";
+import { UserPage, HomePage } from "./base-demo/CompositionComDemo";
 
 export class App extends Component {
   render() {
     return (
       <div style={{ textAlign: "center" }}>
-        <h1>App</h1>
+        <h1>React App</h1>
+        <hr />
 
         {/* <JsxDemo></JsxDemo> */}
 
@@ -16,7 +18,10 @@ export class App extends Component {
 
         {/* <FuncComDemo></FuncComDemo> */}
 
-        <SetStateDemo></SetStateDemo>
+        {/* <SetStateDemo></SetStateDemo> */}
+
+        <UserPage></UserPage>
+        {/* <HomePage></HomePage> */}
       </div>
     );
   }
