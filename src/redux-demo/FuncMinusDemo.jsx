@@ -1,10 +1,12 @@
 /**
  * 函数组件如何重新触发渲染？
- * todo
+ *
+ * todo： 解释
+ *
  */
 
 import React from "react";
-import { store } from "./store";
+import { store } from "./store"; // todo
 
 export function FuncMinusDemo() {
   const minus = () => store.dispatch({ type: "MINUS" });
