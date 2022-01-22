@@ -6,7 +6,7 @@ import { Test } from "./test-demo/Test";
 // import { SetStateDemo } from "./base-demo/SetStateDemo";
 // import { UserPage, HomePage } from "./base-demo/CompositionComDemo";
 // import { ClassAddDemo, FuncMinusDemo } from "./redux-demo";
-
+import { RouterDemo } from "./router-demo";
 export class App extends Component {
   render() {
     return (
@@ -29,6 +29,8 @@ export class App extends Component {
 
         {/* <FuncMinusDemo></FuncMinusDemo> */}
         {/* <ClassAddDemo></ClassAddDemo> */}
+
+        <RouterDemo></RouterDemo>
       </div>
     );
   }
