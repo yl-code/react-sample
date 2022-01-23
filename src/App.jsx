@@ -7,7 +7,8 @@ import React, { Component } from "react";
 // import { UserPage, HomePage } from "./base-demo/CompositionComDemo";
 // import { ClassAddDemo, FuncMinusDemo } from "./redux-demo";
 // import { RouterDemo } from "./router-demo";
-import { ProviderStoreDemo } from "./react-redux-demo";
+// import { ProviderStoreDemo } from "./react-redux-demo";
+import { NotPure, PureComDemo } from "./pure-component-demo";
 
 export class App extends Component {
   render() {
@@ -34,7 +35,10 @@ export class App extends Component {
 
         {/* <RouterDemo></RouterDemo> */}
 
-        <ProviderStoreDemo></ProviderStoreDemo>
+        {/* <ProviderStoreDemo></ProviderStoreDemo> */}
+
+        {/* <NotPure></NotPure> */}
+        <PureComDemo></PureComDemo>
       </div>
     );
   }
