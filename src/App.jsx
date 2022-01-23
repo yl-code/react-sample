@@ -8,7 +8,8 @@ import React, { Component } from "react";
 // import { ClassAddDemo, FuncMinusDemo } from "./redux-demo";
 // import { RouterDemo } from "./router-demo";
 // import { ProviderStoreDemo } from "./react-redux-demo";
-import { NotPure, PureComDemo } from "./pure-component-demo";
+// import { NotPure, PureComDemo } from "./pure-component-demo";
+import { LifeCycleDemo } from "./life-cycle-demo/LifeCycleDemo";
 
 export class App extends Component {
   render() {
@@ -38,7 +39,9 @@ export class App extends Component {
         {/* <ProviderStoreDemo></ProviderStoreDemo> */}
 
         {/* <NotPure></NotPure> */}
-        <PureComDemo></PureComDemo>
+        {/* <PureComDemo></PureComDemo> */}
+
+        <LifeCycleDemo></LifeCycleDemo>
       </div>
     );
   }
