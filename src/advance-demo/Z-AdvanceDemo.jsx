@@ -4,6 +4,8 @@ import { CustomHookDemo } from "./custom-hook-demo/CustomHookDemo";
 import { UseCallbackDemo, UseMemoDemo } from "./hook-api-demo";
 import { CreatePortalDemo } from "./create-portal-demo/CreatePortalDemo";
 import { HOCDemo } from "./HOC-demo/HOCDemo";
+import { CreateFormDemo } from "./rc-form-demo/CreateFormDemo";
+import { MyCreateFormDemo } from "./rc-form-demo";
 
 export function AdvanceDemo() {
   return (
@@ -17,7 +19,10 @@ export function AdvanceDemo() {
 
       {/* <CreatePortalDemo></CreatePortalDemo> */}
 
-      <HOCDemo></HOCDemo>
+      {/* <HOCDemo></HOCDemo> */}
+
+      {/* <CreateFormDemo></CreateFormDemo> */}
+      <MyCreateFormDemo></MyCreateFormDemo>
     </div>
   );
 }
