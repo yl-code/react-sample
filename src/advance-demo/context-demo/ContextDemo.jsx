@@ -1,4 +1,4 @@
-import React, { PureComponent, useState } from "react";
+import React, { Component, PureComponent, useState } from "react";
 import { ConsumerPage } from "./ConsumerPage";
 import { ThemeContext, UserContext } from "./Context";
 
@@ -29,7 +29,7 @@ export function ContextDemo_1() {
   );
 }
 
-export class ContextDemo extends PureComponent {
+export class ContextDemo extends Component {
   constructor(props) {
     super(props);
 
@@ -62,7 +62,25 @@ export class ContextDemo extends PureComponent {
             <UseContextPage />
           </UserContext.Provider>
         </ThemeContext.Provider>
+
+        <hr />
+
+        {/* 这种写法，在 ContextDemo 更新时，只要 value 也就是 this.state.user 没变，就不会导致 Pure 进行更新*/}
+        <ThemeContext.Provider value={this.state.user}>
+          <Pure />
+        </ThemeContext.Provider>
       </div>
     );
+  }
+}
+
+class Pure extends PureComponent {
+  static contextType = ThemeContext;
+
+  render() {
+    console.log("render Pure");
+
+    const { name } = this.context;
+    return <div style={{ name }}>pure: {name}</div>;
   }
 }

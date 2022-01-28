@@ -1,16 +1,6 @@
 import React from "react";
 import { ThemeContext, UserContext } from "./Context";
 
-const RealCom = (props) => {
-  const { theme, user } = props;
-
-  return (
-    <h2 style={{ color: theme.color }}>
-      ConsumerPage: {user.name} - {theme.color}
-    </h2>
-  );
-};
-
 /**
  * context.consumer 这种写法比较难受
  * 多个 context 需要嵌套多层 consumer 函数
@@ -18,6 +8,7 @@ const RealCom = (props) => {
  * consumer 的嵌套顺序不用与 provider 的嵌套顺序一致
  *
  */
+
 // export function ConsumerPage() {
 //   return (
 //     <ThemeContext.Consumer>
@@ -41,3 +32,15 @@ export function ConsumerPage() {
     </UserContext.Consumer>
   );
 }
+
+const RealCom = (props) => {
+  const { theme, user } = props;
+
+  console.log("render RealCom");
+
+  return (
+    <h2 style={{ color: theme.color }}>
+      ConsumerPage: {user.name} - {theme.color}
+    </h2>
+  );
+};

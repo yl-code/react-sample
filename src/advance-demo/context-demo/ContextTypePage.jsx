@@ -10,6 +10,8 @@ export class ContextTypePage extends Component {
   static contextType = ThemeContext;
 
   render() {
+    console.log("render ContextTypePage");
+
     const { color } = this.context;
 
     return <h2 style={{ color }}>ContextTypePage: {color}</h2>;
