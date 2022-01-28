@@ -1,8 +1,10 @@
 import React from "react";
 import ReactDom from "react-dom";
-import "./index.scss";
+import "./index.css";
 // import { BaseDome } from "./base-demo/Z-BaseDemo";
-import { AdvanceDemo } from "./advance-demo/Z-AdvanceDemo";
+// import { AdvanceDemo } from "./advance-demo/Z-AdvanceDemo";
+import { SuperDemo } from "./super-demo/Z-SuperDemo";
 
-// ReactDom.render(<BaseDome></BaseDome>, document.querySelector("#root"));
-ReactDom.render(<AdvanceDemo></AdvanceDemo>, document.querySelector("#root"));
+// ReactDom.render(<BaseDome />, document.querySelector("#root"));
+// ReactDom.render(<AdvanceDemo />, document.querySelector("#root"));
+ReactDom.render(<SuperDemo />, document.querySelector("#root"));
