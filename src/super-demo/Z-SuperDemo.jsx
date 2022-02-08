@@ -10,7 +10,7 @@ export function SuperDemo() {
   return (
     <div>
       <FuncMyRCFormPage />
-      {/* <ClassMyRCFormPage /> */}
+      <ClassMyRCFormPage />
 
       {/* <hr />
 

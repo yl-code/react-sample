@@ -47,9 +47,7 @@ export class ClassMyRCFormPage extends Component {
             <Input placeholder="请输入密码" />
           </Field>
 
-          <Field>
-            <button>Submit</button>
-          </Field>
+          <button>Submit</button>
         </Form>
       </div>
     );
@@ -69,9 +67,7 @@ export const FuncMyRCFormPage = () => {
   const onFinishFailed = (val) => console.log("onFinishFailed", val);
 
   useEffect(() => {
-    console.log(form);
-
-    // form.setFieldsValue({ user: "hook form default" });
+    form.setFieldsValue({ user: "hook form default" });
   }, []);
 
   return (
@@ -86,9 +82,7 @@ export const FuncMyRCFormPage = () => {
           <Input placeholder="请输入密码" />
         </Field>
 
-        <Field>
-          <button>Submit</button>
-        </Field>
+        <button>Submit</button>
       </Form>
     </div>
   );
