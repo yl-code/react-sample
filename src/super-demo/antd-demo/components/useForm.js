@@ -12,11 +12,11 @@ class FormStore {
   constructor() {
     this.store = {}; // 用于存放组件数据
 
-    this.fieldEntities = []; // 用于存放 field 组件实例
-
     this.callbacks = {}; // 用于存放 field 组件的回掉钩子
 
-    this.rules = {}; // 用于存放 field 组件的校验规则
+    this.fieldEntities = []; // 用于存放 field 组件实例
+    // this.rules = {}; // 用于存放 field 组件的校验规则
+    // 上面 fieldEntities 存了所有的 field 实例，自然可以拿到它上面的 name 和 rules，不用再存一次 rules
   }
 
   // 2、实现操作状态的方法 get set
@@ -48,7 +48,7 @@ class FormStore {
   };
 
   // 2.4、单个字段的 get 操作
-  getFieldValue = (field) => this.store[field];
+  getFieldValue = (fieldName) => this.store[fieldName];
 
   // 3、注册需要更新的组件实例
   registerField = (fieldInstance) => {
@@ -64,27 +64,30 @@ class FormStore {
     };
   };
 
-  setRules = (name, rules) => {
-    this.rules[name] = rules;
+  // 上面 fieldEntities 存了所有的 field 实例，自然可以拿到它上面的 name 和 rules，不用再存一次 rules
+  // setRules = (name, rules) => {
+  //   this.rules[name] = rules;
 
-    return () => {
-      delete this.rules[name];
-    };
-  };
+  //   return () => {
+  //     delete this.rules[name];
+  //   };
+  // };
 
   // 4、校验用户输入的数据
+  // 上面 fieldEntities 存了所有的 field 实例，自然可以拿到它上面的 name 和 rules，进行校验即可
   validate = () => {
-    const { rules, store } = this;
     const err = [];
 
-    Object.keys(this.rules).forEach((name) => {
-      // 这里每个 field 的 rules 都是是一个数组
-      // 所以应该遍历 rules 中的规则，按照规则对 field 的数据进行校验
-      // 这里简化处理，只判断 field 是否有值
-      if (rules[name][0].required && !store[name]) {
+    this.fieldEntities.forEach((field) => {
+      const { name, rules } = field.props;
+
+      const rule = rules && rules[0];
+      const value = this.getFieldValue(name);
+
+      if (rule && rule.required && !value) {
         err.push({
-          name,
-          msg: rules[name][0].message,
+          [name]: rule.message,
+          value,
         });
       }
     });
@@ -107,10 +110,10 @@ class FormStore {
 
     if (err.length) {
       // 数据校验有失败的
-      onFinishFailed({ err, data: this.store });
+      onFinishFailed(err);
     } else {
       //数据校验全部通过
-      onFinish({ data: this.store });
+      onFinish({ ...this.store });
     }
   };
 
@@ -123,7 +126,7 @@ class FormStore {
     registerField: this.registerField,
     setCallbacks: this.setCallbacks,
     submit: this.submit,
-    setRules: this.setRules,
+    // setRules: this.setRules,
   });
 }
 

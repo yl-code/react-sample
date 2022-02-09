@@ -29,20 +29,19 @@ export class Field extends Component {
   };
 
   componentDidMount() {
-    const { rules, name } = this.props;
-
-    // 3、在 store 中注册 field 组件的 实例 与 组件的校验规则
+    // 3、在 store 中注册 field 组件的 实例
     this.unRegister = this.context.registerField(this);
 
-    if (this.props.rules.length) {
-      this.removeRules = this.context.setRules(name, rules);
-    }
+    // const { rules, name } = this.props;
+    // if (this.props.rules.length) {
+    //   this.removeRules = this.context.setRules(name, rules);
+    // }
   }
 
-  // 4、注销 store 中的组件实例 与校验规则
+  // 4、注销 store 中的组件实例
   componentWillUnmount() {
     this.unRegister();
-    this.removeRules();
+    // this.removeRules();
   }
 
   render() {
