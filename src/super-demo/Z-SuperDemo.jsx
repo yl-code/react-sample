@@ -1,26 +1,31 @@
 import React from "react";
-import { ClassAntdFormPage, FuncAntdFormPage } from "./antd-demo/AntdFormPage";
-import { ClassMyRCFormPage, FuncMyRCFormPage } from "./antd-demo/My-FormPage";
+import {} from "./antd-demo";
 import {
+  ClassAntdFormPage,
+  FuncAntdFormPage,
   ClassRCFieldFormPage,
   FuncRcFieldFormPage,
-} from "./antd-demo/RCFieldFormPage";
+  ClassMyRCFormPage,
+  FuncMyRCFormPage,
+} from "./antd-demo";
+
+import { ReduxPage } from "./redux-demo";
 
 export function SuperDemo() {
   return (
     <div>
-      <FuncMyRCFormPage />
-      <ClassMyRCFormPage />
-
-      {/* <hr />
-
-      <ClassRCFieldFormPage />
+      {/* <ClassRCFieldFormPage />
       <FuncRcFieldFormPage /> */}
 
       {/* <hr />
-
       <ClassAntdFormPage />
       <FuncAntdFormPage /> */}
+
+      {/* <hr />
+      <FuncMyRCFormPage />
+      <ClassMyRCFormPage /> */}
+
+      <ReduxPage></ReduxPage>
     </div>
   );
 }
