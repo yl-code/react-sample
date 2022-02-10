@@ -10,6 +10,7 @@ import {
 } from "./antd-demo";
 
 import { ReduxPage } from "./redux-demo";
+import { MyReduxPage } from "./redux-demo";
 
 export function SuperDemo() {
   return (
@@ -25,7 +26,8 @@ export function SuperDemo() {
       <FuncMyRCFormPage />
       <ClassMyRCFormPage /> */}
 
-      <ReduxPage></ReduxPage>
+      <ReduxPage />
+      <MyReduxPage />
     </div>
   );
 }
