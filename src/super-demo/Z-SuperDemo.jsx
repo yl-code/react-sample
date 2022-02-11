@@ -26,7 +26,7 @@ export function SuperDemo() {
       <FuncMyRCFormPage />
       <ClassMyRCFormPage /> */}
 
-      <ReduxPage />
+      {/* <ReduxPage /> */}
       <MyReduxPage />
     </div>
   );

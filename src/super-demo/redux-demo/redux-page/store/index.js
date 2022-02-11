@@ -1,4 +1,6 @@
-import { createStore } from "redux";
+import { applyMiddleware, createStore } from "redux";
+import logger from "redux-logger";
+import thunk from "redux-thunk";
 
 const countReducer = (state = 100, action) => {
   const { type, payload = 1 } = action;
@@ -11,4 +13,4 @@ const countReducer = (state = 100, action) => {
   }
 };
 
-export const store = createStore(countReducer);
+export const store = createStore(countReducer, applyMiddleware(logger, thunk));

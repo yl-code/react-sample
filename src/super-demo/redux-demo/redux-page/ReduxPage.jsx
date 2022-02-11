@@ -11,6 +11,8 @@ export class ReduxPage extends Component {
   handleAdd = () => store.dispatch({ type: "ADD", payload: 100 });
 
   render() {
-    return <button onClick={this.handleAdd}>{store.getState()}</button>;
+    return (
+      <button onClick={this.handleAdd}>redux-demo: {store.getState()}</button>
+    );
   }
 }
