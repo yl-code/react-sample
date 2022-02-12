@@ -1,5 +1,4 @@
 import React from "react";
-import {} from "./antd-demo";
 import {
   ClassAntdFormPage,
   FuncAntdFormPage,

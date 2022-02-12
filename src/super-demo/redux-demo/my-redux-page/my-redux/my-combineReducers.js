@@ -6,21 +6,23 @@
  *
  */
 export const combineReducers = (reducerDict) => {
-  return (state = {}, action) => {
+  // 返回是合并之后的总 reducer，所以也会接收 prevState 和 action
+  return (prevState = {}, action) => {
     const nextState = {};
 
     let hasChanged = false;
 
     for (const key in reducerDict) {
       const reducer = reducerDict[key];
-      nextState[key] = reducer(state[key], action);
+      nextState[key] = reducer(prevState[key], action);
 
-      hasChanged = hasChanged || nextState[key] !== state[key];
+      hasChanged = hasChanged || nextState[key] !== prevState[key];
     }
 
     hasChanged =
-      hasChanged || Object.keys(nextState).length !== Object.keys(state).length;
+      hasChanged ||
+      Object.keys(nextState).length !== Object.keys(prevState).length;
 
-    return hasChanged ? nextState : state;
+    return hasChanged ? nextState : prevState;
   };
 };

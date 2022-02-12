@@ -38,12 +38,12 @@ const countReducer2 = (state = { num: 1 }, action) => {
 };
 
 export const store = createStore(
-  // countReducer,
+  countReducer,
 
   // 合并多个 reducer
-  combineReducers({
-    count: countReducer,
-    count2: countReducer2,
-  }),
-  applyMiddleware(promiseFull, thunk, logger)
+  // combineReducers({
+  //   count: countReducer,
+  //   count2: countReducer2,
+  // }),
+  applyMiddleware(promise, thunk, logger)
 );

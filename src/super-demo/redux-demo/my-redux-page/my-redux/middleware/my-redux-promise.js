@@ -4,9 +4,11 @@ import { isFSA } from "flux-standard-action";
 // 简易版
 export const promise = ({ dispatch }) => {
   return (next) => (action) => {
-    console.log("promise next");
+    console.log("promise middleware exec");
 
-    return isPromise(action) ? action.then(dispatch) : next(action);
+    isPromise(action.payload)
+      ? action.payload.then((payload) => dispatch({ ...action, payload }))
+      : next(action);
   };
 };
 

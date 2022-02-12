@@ -32,7 +32,7 @@ export class MyReduxPage extends Component {
   handlePromiseAdd = () => {
     store.dispatch({
       type: "ADD",
-      payload: Promise.reject(100),
+      payload: Promise.resolve(100),
     });
   };
 
@@ -45,8 +45,8 @@ export class MyReduxPage extends Component {
 
     return (
       <div>
-        {/* <h2>my-redux-demo</h2>
-        <button onClick={this.handleAdd}>ADD：{store.getState().count}</button>
+        <h2>my-redux-demo</h2>
+        <button onClick={this.handleAdd}>ADD：{store.getState()}</button>
         <br />
         <button onClick={this.handleAsyncAdd}>
           async-ADD：{store.getState()}
@@ -54,14 +54,15 @@ export class MyReduxPage extends Component {
         <br />
         <button onClick={this.handlePromiseAdd}>
           promise-ADD：{store.getState()}
-        </button> */}
+        </button>
 
         <br />
 
-        <button onClick={this.handleAdd}>ADD：{store.getState().count}</button>
+        {/* 下面是 combineReducers 的例子 */}
+        {/* <button onClick={this.handleAdd}>ADD：{store.getState().count}</button>
         <button onClick={this.setNum}>
           ADD2：{store.getState().count2.num}
-        </button>
+        </button> */}
       </div>
     );
   }
@@ -92,4 +93,4 @@ export class MyReduxPage extends Component {
 //   );
 // };
 // console.log(compose(f1)("omg"));
-// console.log(compose(f1, f2, f3)("omg"));
+// console.log(compose(f1, f2, f3)("omg")); // f1(f2(f3(...arg)))
