@@ -41,7 +41,7 @@ export class MyReduxPage extends Component {
   };
 
   render() {
-    console.log(store.getState());
+    // console.log(store.getState());
 
     return (
       <div>
@@ -89,7 +89,7 @@ export class MyReduxPage extends Component {
 //   return func.reduce(
 //     (a, b) =>
 //       (...arg) =>
-//         b(a(...arg))
+//         a(b(...arg))
 //   );
 // };
 // console.log(compose(f1)("omg"));

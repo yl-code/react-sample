@@ -3,12 +3,18 @@ import { isFSA } from "flux-standard-action";
 
 // 简易版
 export const promise = ({ dispatch }) => {
-  return (next) => (action) => {
-    console.log("promise middleware exec");
+  // 返回下一个 dispatch 函数
+  return function promiseDispatchWarp(next) {
+    console.log("promiseDispatchWarp exec, next: ", next.name);
 
-    isPromise(action.payload)
-      ? action.payload.then((payload) => dispatch({ ...action, payload }))
-      : next(action);
+    // 返回一个 dispatch 函数
+    return function promiseDispatch(action) {
+      console.log("promiseDispatch exec", action);
+
+      isPromise(action.payload)
+        ? action.payload.then((payload) => dispatch({ ...action, payload }))
+        : next(action);
+    };
   };
 };
 

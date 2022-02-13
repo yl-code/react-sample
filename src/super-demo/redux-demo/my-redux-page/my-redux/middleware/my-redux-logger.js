@@ -1,22 +1,23 @@
 // 实现 logger 中间件
+// 接收 storeApi，返回一个函数
 export const logger = ({ getState }) => {
-  // 接收 storeApi，返回一个函数
-  return (next) => (action) => {
-    console.log("logger next:", next.name);
+  return function loggerDispatchWarp(next) {
+    console.log("loggerDispatchWarp exec, next: ", next.name);
 
-    console.log("====================================");
-    // console.log(action);
+    return function loggerDispatch(action) {
+      console.log("loggerDispatch", action);
 
-    const prevState = getState();
-    console.log("prev state", prevState);
+      console.log("====================================");
+      // console.log(action);
 
-    const res = next(action);
+      const prevState = getState();
+      console.log("prev state", prevState);
 
-    const nextState = getState();
-    console.log("next state", nextState);
-    console.log("====================================");
+      next(action);
 
-    console.log("logger", res);
-    // return res;
+      const nextState = getState();
+      console.log("next state", nextState);
+      console.log("====================================");
+    };
   };
 };
