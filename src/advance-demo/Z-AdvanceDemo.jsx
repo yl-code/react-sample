@@ -1,31 +1,37 @@
 import React from "react";
-// import { HookDemo } from "./hook-api-demo/HookDemo";
-// import { CustomHookDemo } from "./custom-hook-demo/CustomHookDemo";
-// import { UseCallbackDemo, UseMemoDemo } from "./hook-api-demo";
-// import { CreatePortalDemo } from "./create-portal-demo/CreatePortalDemo";
-// import { HOCDemo } from "./HOC-demo/HOCDemo";
-// import { CreateFormDemo } from "./rc-form-demo/CreateFormDemo";
-// import { MyCreateFormDemo } from "./rc-form-demo";
+import { CustomHookDemo } from "./custom-hook-demo/CustomHookDemo";
+import {
+  UseCallbackDemo,
+  UseMemoDemo,
+  HookDemo,
+  UseReducerDemo,
+  UseLayoutEffectDemo,
+} from "./hook-api-demo";
+import { CreatePortalDemo } from "./create-portal-demo/CreatePortalDemo";
+import { HOCDemo } from "./HOC-demo/HOCDemo";
+import { CreateFormDemo, MyCreateFormDemo } from "./rc-form-demo";
 import { ContextDemo } from "./context-demo/ContextDemo";
 
 export function AdvanceDemo() {
   return (
     <div>
-      {/* <HookDemo></HookDemo> */}
+      {/* <HookDemo /> */}
 
-      {/* <CustomHookDemo></CustomHookDemo> */}
+      {/* <CustomHookDemo /> */}
 
-      {/* <UseMemoDemo></UseMemoDemo> */}
-      {/* <UseCallbackDemo></UseCallbackDemo> */}
+      {/* <UseMemoDemo /> */}
+      {/* <UseCallbackDemo /> */}
+      {/* <UseReducerDemo /> */}
+      <UseLayoutEffectDemo />
 
-      {/* <CreatePortalDemo></CreatePortalDemo> */}
+      {/* <CreatePortalDemo /> */}
 
-      {/* <HOCDemo></HOCDemo> */}
+      {/* <HOCDemo /> */}
 
-      {/* <CreateFormDemo></CreateFormDemo> */}
-      {/* <MyCreateFormDemo></MyCreateFormDemo> */}
+      {/* <CreateFormDemo /> */}
+      {/* <MyCreateFormDemo /> */}
 
-      <ContextDemo></ContextDemo>
+      {/* <ContextDemo /> */}
     </div>
   );
 }
