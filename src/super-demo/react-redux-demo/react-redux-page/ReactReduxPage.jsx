@@ -1,8 +1,9 @@
 import React, { Component } from "react";
-import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
+import { bindActionCreators, connect } from "./my-react-redux";
+// import { connect } from "react-redux";
+// import { bindActionCreators } from "redux";
 
-/**
+/******************************************************
  * connect 方法的第一个参数
  *
  * mapStateToProps 只能是一个 function
@@ -11,25 +12,27 @@ import { bindActionCreators } from "redux";
  */
 const mapStateToProps = (state) => ({ count: state });
 
-/**
+/******************************************************
  * connect 方法的第三个参数
  *
  * mapDispatchToProps 可以是一个 object 或者 function
  */
+
 // // 下面是 object 写法，object 同样会被合并到组件的 props 上
 // 这种写法比较简洁，但是组件拿不到 dispatch
 // const mapDispatchToProps = {
 //   add: () => ({ type: "ADD" }),
 //   minus: () => ({ type: "MINUS" }),
 // };
+
 // 下面是 function 写法，接收 store 的 dispatch 方法，返回一个对象合并到组件的 props 上
 // 这种写法更加灵活，可以直接封装我们自己想要的 dispatch 方法
 // 也可以直接用对象的写法，加上 bindActionCreators 进行转换
 const mapDispatchToProps = (dispatch) => {
-  // 1
+  // 方式 1
   const minus = () => dispatch({ type: "MINUS" });
 
-  //2
+  // 方式 2
   let creators = {
     add: () => ({ type: "ADD" }),
   };
@@ -38,7 +41,7 @@ const mapDispatchToProps = (dispatch) => {
   return { dispatch, minus, ...creators };
 };
 
-/**
+/******************************************************
  * connect 方法的第三个参数
  *
  * mergeProps 是一个 function
@@ -53,7 +56,7 @@ const mergeProps = (stateProps, dispatchProps, ownProps) => {
   return { ...stateProps, ...dispatchProps, ...ownProps };
 };
 
-/**
+/******************************************************
  * class 组件中 react-redux 依然使用高阶组件的方法
  *
  * 所以这里使用装饰器的写法
@@ -64,7 +67,9 @@ const mergeProps = (stateProps, dispatchProps, ownProps) => {
 export class ReactReduxPage extends Component {
   render() {
     const { count, add, minus } = this.props;
+
     console.log(this.props);
+
     return (
       <div>
         <button onClick={add}>count add: {count}</button>
