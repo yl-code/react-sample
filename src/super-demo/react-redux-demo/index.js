@@ -11,7 +11,7 @@ export function ReactReduxDemo() {
     <Provider store={store}>
       <ReactReduxPage ownProps={"ownProps"} />
       <hr />
-      {/* <ReactReduxHookPage ownProps={"ownProps"} /> */}
+      <ReactReduxHookPage ownProps={"ownProps"} />
     </Provider>
   );
 }

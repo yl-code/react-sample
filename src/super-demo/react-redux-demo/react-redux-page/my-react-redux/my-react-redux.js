@@ -2,6 +2,7 @@ import React, {
   useCallback,
   useContext,
   useEffect,
+  useLayoutEffect,
   useReducer,
   useState,
 } from "react";
@@ -33,12 +34,37 @@ export const connect =
 
     const forceUpdate = useForceUpdate();
 
-    useEffect(() => {
-      store.subscribe(forceUpdate);
+    // 当 store 发生改变时，组件立即更新，所以需要使用 useLayoutEffect
+    // 不能使用 useEffect，它俩执行时机不一样
+    // useEffect 在 dom 变更后延迟执行，延迟的时间段内如果再次发生状态值的改变，那么可能会导致漏掉一次更新
+    // useLayoutEffect 在 dom 变更后同步执行
+    useLayoutEffect(() => {
+      const unsubscribe = store.subscribe(forceUpdate);
+      return unsubscribe;
     }, [store]);
 
     return <Component {...props} {...stateProps} {...dispatchProps} />;
   };
+
+// hook api
+export const useDispatch = () => {
+  const store = useContext(Context);
+  return store.dispatch;
+};
+
+export const useSelector = (selector) => {
+  const store = useContext(Context);
+  const selectedState = selector(store.getState());
+
+  const forceUpdate = useForceUpdate();
+
+  useLayoutEffect(() => {
+    const unSubscribe = store.subscribe(forceUpdate);
+    return unSubscribe;
+  }, [store]);
+
+  return selectedState;
+};
 
 // utils
 // 自定义 hook 实现类似于 class 组件的 forceUpdate 的作用

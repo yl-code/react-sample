@@ -10,7 +10,13 @@ import { bindActionCreators, connect } from "./my-react-redux";
  * 接收一个 state，就是上层 provider 传递的 store
  * 返回一个对象，将被合并到 ReactReduxPage 上
  */
-const mapStateToProps = (state) => ({ count: state });
+const mapStateToProps = (state) => {
+  // connect 接收的参数中有函数的话，每次组件更新，都会执行，所以不要写很复杂的逻辑，影响性能
+
+  console.log("mapStateToProps exec");
+
+  return { count: state };
+};
 
 /******************************************************
  * connect 方法的第三个参数
