@@ -6,7 +6,7 @@ import React, { Component } from "react";
 // import { SetStateDemo } from "./SetStateDemo";
 // import { UserPage, HomePage } from "./CompositionComDemo";
 // import { ClassAddDemo, FuncMinusDemo } from "./redux-demo";
-// import { RouterDemo } from "./router-demo";
+import { RouterDemo } from "./router-demo";
 // import { ProviderStoreDemo } from "./react-redux-demo";
 // import { NotPure, PureComDemo } from "./pure-component-demo";
 import { LifeCycleDemo } from "./life-cycle-demo/LifeCycleDemo";
@@ -34,14 +34,14 @@ export class BaseDome extends Component {
         {/* <FuncMinusDemo></FuncMinusDemo> */}
         {/* <ClassAddDemo></ClassAddDemo> */}
 
-        {/* <RouterDemo></RouterDemo> */}
+        <RouterDemo />
 
         {/* <ProviderStoreDemo></ProviderStoreDemo> */}
 
         {/* <NotPure></NotPure> */}
         {/* <PureComDemo></PureComDemo> */}
 
-        <LifeCycleDemo></LifeCycleDemo>
+        {/* <LifeCycleDemo></LifeCycleDemo> */}
       </div>
     );
   }
