@@ -1,4 +1,5 @@
 import React from "react";
+import { RouterDemo } from "./router-demo";
 // import {
 //   ClassAntdFormPage,
 //   FuncAntdFormPage,
@@ -8,7 +9,7 @@ import React from "react";
 //   FuncMyRCFormPage,
 // } from "./antd-demo";
 // import { ReduxPage, MyReduxPage } from "./redux-demo";
-import { ReactReduxDemo } from "./react-redux-demo";
+// import { ReactReduxDemo } from "./react-redux-demo";
 
 export function SuperDemo() {
   return (
@@ -27,7 +28,9 @@ export function SuperDemo() {
       {/* <ReduxPage /> */}
       {/* <MyReduxPage /> */}
 
-      <ReactReduxDemo />
+      {/* <ReactReduxDemo /> */}
+
+      <RouterDemo />
     </div>
   );
 }

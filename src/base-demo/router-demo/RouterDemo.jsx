@@ -13,22 +13,18 @@ export class RouterDemo extends Component {
     return (
       <div>
         <h2>react-router-dom demo</h2>
-
         <button onClick={() => this.setState({ num: 1 })}>
           num: {this.state.num}
         </button>
-
         <hr />
-
         <BrowserRouter>
           <Link to="/">home</Link> | <Link to="/user">user</Link>
           {/* 
 
             1、Route 组件渲染内容的三种方式优先级排名：children > component > render
             
-            2、children 属性如果接受的是函数，且外层没有用 Switch 组件进行包裹时，那么它的渲染就不受 location 变化影响
-
-            3、render、component、children 属性为 组件 时，渲染会受到 location 的变化所影响
+            2、children 属性接受的是函数时，且外层没有用 Switch 组件进行包裹时，那么它的渲染就不受 location 变化影响
+               children 属性接收的是组件时，组件的渲染会受到 location 的变化所影响
 
           */}
           <Switch>
