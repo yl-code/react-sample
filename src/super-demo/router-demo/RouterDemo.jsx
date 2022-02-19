@@ -17,23 +17,23 @@ export function RouterDemo() {
         <Link to="/">首页</Link> | <Link to="/user">用户</Link> |
         <Link to="/car/123">车🚗</Link>
         <hr />
-        {/* <Switch> */}
-        <Route
-          exact
-          path="/"
-          // children={<Home mode="children" />}
-          // children={() => <Home mode="children func" />}
-          //
-          // component 属性只能接受组件 func/class，不分优先级
-          component={Home}
-          // component={() => <Home mode="component func" />}
-          //
-          // render={() => <Home mode="render func" />}
-        />
-        <Route path="/user" component={User} />
-        <Route path="/car/:id" component={Car} />
-        <Route component={NotFound} />
-        {/* </Switch> */}
+        <Switch>
+          <Route
+            exact
+            path="/"
+            // children={<Home mode="children" />}
+            // children={() => <Home mode="children func" />}
+            //
+            // component 属性只能接受组件 func/class，不分优先级
+            component={Home}
+            // component={() => <Home mode="component func" />}
+            //
+            // render={() => <Home mode="render func" />}
+          />
+          <Route exact path="/user" component={User} />
+          {/* <Route path="/car/:id" component={Car} /> */}
+          <Route component={NotFound} />
+        </Switch>
       </Router>
     </div>
   );
