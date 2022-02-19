@@ -11,14 +11,25 @@ export function RouterDemo() {
 
   return (
     <div>
-      <button onClick={() => setNum(num + 1)}>num: {num}</button>
+      <button onClick={() => setNum(num + 1)}>update num: {num}</button>
       <hr />
       <Router>
         <Link to="/">首页</Link> | <Link to="/user">用户</Link> |
         <Link to="/car/123">车🚗</Link>
         <hr />
         {/* <Switch> */}
-        <Route exact path="/" component={Home} />
+        <Route
+          exact
+          path="/"
+          // children={<Home mode="children" />}
+          // children={() => <Home mode="children func" />}
+          //
+          // component 属性只能接受组件 func/class，不分优先级
+          component={Home}
+          // component={() => <Home mode="component func" />}
+          //
+          // render={() => <Home mode="render func" />}
+        />
         <Route path="/user" component={User} />
         <Route path="/car/:id" component={Car} />
         <Route component={NotFound} />
@@ -42,7 +53,8 @@ class Home extends Component {
   }
 
   render() {
-    return <h3>home Page</h3>;
+    const { mode = "component" } = this.props;
+    return <h3>home Page: {mode}</h3>;
   }
 }
 
