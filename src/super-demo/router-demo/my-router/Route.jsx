@@ -37,20 +37,33 @@ export class Route extends Component {
            *
            * not match:
            *    children<function>、null
+           *
+           *
+           *
+           * 为了支持 hooks 用法 useRouteMatch，这里需要再用 RouterContext.Provider 包一层
+           *
+           * 如果不使用 Provider 再包一层，useRouteMatch 里面使用的 useContext 拿到的，就一直是最顶层 RouterContext.Provider 提供的 context
+           * 并且 context 中的 match 对象只是初始设置的默认值
+           *
+           * 这样包了一层 Provider 之后，后代组件中，使用 useRouteMatch 就能拿到最新的，真实的 match 对象了
            */
-          return match
-            ? children
-              ? typeof children === "function"
+          return (
+            <RouterContext.Provider value={props}>
+              {match
+                ? children
+                  ? typeof children === "function"
+                    ? children(props)
+                    : children
+                  : component
+                  ? createElement(component, props)
+                  : render
+                  ? render(props)
+                  : null
+                : typeof children === "function"
                 ? children(props)
-                : children
-              : component
-              ? createElement(component, props)
-              : render
-              ? render(props)
-              : null
-            : typeof children === "function"
-            ? children(props)
-            : null;
+                : null}
+            </RouterContext.Provider>
+          );
         }}
       </RouterContext.Consumer>
     );

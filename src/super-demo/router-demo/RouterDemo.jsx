@@ -1,6 +1,15 @@
 import React, { Component, useState } from "react";
 // import { BrowserRouter as Router, Link, Route, Switch } from "react-router-dom";
-import { BrowserRouter as Router, Link, Route, Switch } from "./my-router";
+import {
+  BrowserRouter as Router,
+  Link,
+  Route,
+  Switch,
+  useHistory,
+  useLocation,
+  useParams,
+  useRouteMatch,
+} from "./my-router";
 
 export function RouterDemo() {
   const [num, setNum] = useState(1);
@@ -31,7 +40,7 @@ export function RouterDemo() {
             // render={() => <Home mode="render func" />}
           />
           <Route exact path="/user" component={User} />
-          {/* <Route path="/car/:id" component={Car} /> */}
+          <Route path="/car/:id" component={Car} />
           <Route component={NotFound} />
         </Switch>
       </Router>
@@ -76,35 +85,36 @@ class User extends Component {
   }
 }
 
-class Car extends Component {
-  componentDidMount() {
-    console.log("car did mount");
-  }
+// 传统写法
+// function Car({ match }) {
+//   const { params, url } = match;
+//   return (
+//     <div>
+//       <h3>car Page -- id: {params.id}</h3>
+//       <hr />
+//       <Link to={url + "/detail"}>嵌套路由</Link>
+//       <Route path={url + "/detail"} component={Detail} />
+//     </div>
+//   );
+// }
 
-  componentDidUpdate() {
-    console.log("car did update");
-  }
+// hook 写法
+function Car() {
+  const params = useParams();
+  const match = useRouteMatch();
+  const location = useLocation();
+  const history = useHistory();
 
-  componentWillUnmount() {
-    console.log("car will unmount");
-  }
+  console.log(params, match, location, history);
 
-  render() {
-    const { match = {} } = this.props;
-
-    console.log(match);
-
-    const { params, url } = match;
-
-    return (
-      <div>
-        <h3>car Page -- id: {params.id}</h3>
-        <hr />
-        <Link to={url + "/detail"}>嵌套路由</Link>
-        <Route path={url + "/detail"} component={Detail} />
-      </div>
-    );
-  }
+  return (
+    <div>
+      <h3>car Page -- id: {params.id}</h3>
+      <hr />
+      <Link to={match.url + "/detail"}>嵌套路由</Link>
+      <Route path={match.url + "/detail"} component={Detail} />
+    </div>
+  );
 }
 
 function Detail() {
