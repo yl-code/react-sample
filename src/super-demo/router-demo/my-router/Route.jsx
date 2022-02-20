@@ -25,7 +25,7 @@ export class Route extends Component {
             : path
             ? matchPath(location.pathname, this.props)
             : context.match;
-          console.log(match);
+          // console.log(match);
 
           const props = { ...context, match };
 

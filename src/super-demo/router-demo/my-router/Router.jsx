@@ -18,9 +18,11 @@ export class Router extends Component {
     this.state = { location: props.history.location };
 
     //监听路由变化
-    this.unListen = props.history.listen((location) =>
-      this.setState({ location })
-    );
+    this.unListen = props.history.listen((location) => {
+      this.setState({ location });
+
+      console.log("route change");
+    });
   }
 
   // 有监听就会有取消监听
