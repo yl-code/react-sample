@@ -1,5 +1,22 @@
 import React, { Component, useEffect, useRef, useState } from "react";
-// import { BrowserRouter as Router, Link, Route, Switch } from "react-router-dom";
+
+// import {
+//   // BrowserRouter as Router,
+//   HashRouter as Router,
+//   // MemoryRouter as Router,
+//   Link,
+//   NavLink,
+//   Prompt,
+//   Redirect,
+//   Route,
+//   Switch,
+//   useHistory,
+//   useLocation,
+//   useParams,
+//   useRouteMatch,
+//   withRouter,
+// } from "react-router-dom";
+
 import {
   // BrowserRouter as Router,
   HashRouter as Router,
@@ -60,7 +77,7 @@ export function RouterDemo() {
           <Route
             exact
             path="/user"
-            render={(props) => <User {...props} flag={num === 2} />}
+            render={(props) => <User {...props} flag={num % 2 === 1} />}
           />
           <Route path="/car/:id" render={() => <Car />} />
           <Route component={NotFound} />
