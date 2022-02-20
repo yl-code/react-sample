@@ -1,23 +1,46 @@
-import React, { Component } from "react";
+import React, { Component, useState } from "react";
 
-export class Test extends Component {
-  constructor(props) {
-    super(props);
+export function Test() {
+  const [num, setNum] = useState(1);
 
-    this.state = {
-      num: 10,
-    };
+  return (
+    <div>
+      <h1>Test</h1>
+      <button
+        onClick={() => {
+          setNum(num + 1);
+        }}
+      >
+        num: {num}
+      </button>
+      <Sub />
+
+      <Child />
+    </div>
+  );
+}
+
+const Sub = () => {
+  console.log(123);
+  return <div>sub</div>;
+};
+
+class Child extends Component {
+  componentDidMount() {
+    console.log("child mount");
   }
 
-  displayFn() {
-    console.log(this.state.num);
+  componentDidUpdate() {
+    console.log("child update");
+  }
+
+  componentWillUnmount() {
+    console.log("child will unmount");
   }
 
   render() {
-    return (
-      <div>
-        <button onClick={this.displayFn.bind(this)}>test</button>
-      </div>
-    );
+    console.log("child render");
+
+    return <div>child</div>;
   }
 }
