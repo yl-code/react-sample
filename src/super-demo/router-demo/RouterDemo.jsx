@@ -60,7 +60,7 @@ export function RouterDemo() {
           <Route
             exact
             path="/user"
-            render={(props) => <User {...props} num={num} />}
+            render={(props) => <User {...props} flag={num === 2} />}
           />
           <Route path="/car/:id" render={() => <Car />} />
           <Route component={NotFound} />
@@ -115,11 +115,8 @@ class User extends Component {
 
     return (
       <div>
-        <h3>user Page</h3>
-        <Prompt
-          when={this.props.num !== 2}
-          message="确定要离开 user 页面吗？"
-        />
+        <h3>user Page: {`${this.props.flag}`}</h3>
+        <Prompt when={this.props.flag} message="确定要离开 user 页面吗？" />
 
         <OtherCom />
       </div>
