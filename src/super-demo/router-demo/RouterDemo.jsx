@@ -133,6 +133,7 @@ class User extends Component {
     return (
       <div>
         <h3>user Page: {`${this.props.flag}`}</h3>
+        <Link to="/">首页</Link>
         <Prompt when={this.props.flag} message="确定要离开 user 页面吗？" />
 
         <OtherCom />
