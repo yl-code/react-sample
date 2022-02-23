@@ -1,5 +1,6 @@
 import React from "react";
 import { BrowserRouter as Router, Link, Route, Switch } from "react-router-dom";
+import { PrivateRoute } from "../components";
 import { Home } from "../pages/Home";
 import { Login } from "../pages/Login";
 import { NotFound } from "../pages/NotFound";
@@ -13,8 +14,10 @@ export function Routes() {
       <hr />
       <Switch>
         <Route exact path="/" component={Home} />
-        <Route path="/user" component={User} />
         <Route path="/login" component={Login} />
+
+        {/* <Route path="/user" component={User} /> */}
+        <PrivateRoute path="/user" component={User} />
 
         <Route component={NotFound} />
       </Switch>
