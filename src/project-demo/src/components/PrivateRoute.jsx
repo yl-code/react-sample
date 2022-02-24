@@ -2,14 +2,14 @@ import React from "react";
 import { connect } from "react-redux";
 import { Redirect, Route } from "react-router-dom";
 
-function LoginGuard({ isLogin, path, component: Com, ...arg }) {
+function LoginGuard({ isLogin, path, component: RealComponent, ...arg }) {
   return (
     <Route
       {...arg}
       path={path}
       render={(props) => {
         return isLogin ? (
-          <Com {...props} />
+          <RealComponent {...props} />
         ) : (
           <Redirect to={{ pathname: "/login", state: { from: path } }} />
         );
@@ -18,5 +18,7 @@ function LoginGuard({ isLogin, path, component: Com, ...arg }) {
   );
 }
 
-// export const PrivateRoute = connect(({ user }) => user.isLogin)(LoginGuard);
-export const PrivateRoute = LoginGuard;
+export const PrivateRoute = connect(({ user }) => ({ isLogin: user.isLogin }))(
+  LoginGuard
+);
+// export const PrivateRoute = LoginGuard;
