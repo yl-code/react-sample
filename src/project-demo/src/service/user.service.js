@@ -4,7 +4,7 @@ const getMoreInfo = (userInfo) => {
       if (userInfo.id === 1) {
         resolve({ ...userInfo, score: 100 });
       } else {
-        reject({ err: { msg: "用户不存在" } });
+        reject({ err: { msg: '用户不存在' } });
       }
     }, 1000);
   });
@@ -13,10 +13,10 @@ const getMoreInfo = (userInfo) => {
 const login = (userInfo) => {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
-      if (userInfo.name === "yl") {
-        resolve({ id: 1, name: "hello yl" });
+      if (userInfo.name === 'yl') {
+        resolve({ id: 1, name: 'hello yl' });
       } else {
-        reject({ err: { msg: "用户名或密码错误" } });
+        reject({ err: { msg: '用户名或密码错误' } });
       }
     }, 1000);
   });
