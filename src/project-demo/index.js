@@ -1,12 +1,9 @@
-import React from "react";
-import { Provider } from "react-redux";
-import { Routes } from "./src/Router";
-import { store } from "./src/store";
+import { CRADemo } from './CRA-demo';
 
 export function ProjectDemo() {
   return (
-    <Provider store={store}>
-      <Routes />
-    </Provider>
+    <div>
+      <CRADemo />
+    </div>
   );
 }
