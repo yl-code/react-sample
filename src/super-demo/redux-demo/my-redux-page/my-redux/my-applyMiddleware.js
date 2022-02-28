@@ -26,6 +26,7 @@ export const applyMiddleware = (...middlewares) => {
     // 这里就是增强的 dispatch，供外部使用
     dispatch = compose(...chain)(dispatch);
 
+    console.log(dispatch.name);
     return {
       ...store,
       dispatch,

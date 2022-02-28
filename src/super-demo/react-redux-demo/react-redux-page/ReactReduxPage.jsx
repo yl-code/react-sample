@@ -19,7 +19,7 @@ const mapStateToProps = (state) => {
 };
 
 /******************************************************
- * connect 方法的第三个参数
+ * connect 方法的第二个参数
  *
  * mapDispatchToProps 可以是一个 object 或者 function
  */

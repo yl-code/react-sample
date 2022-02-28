@@ -1,5 +1,5 @@
-import React, { Component } from "react";
-import { store } from "./store";
+import React, { Component } from 'react';
+import { store } from './store';
 
 export class MyReduxPage extends Component {
   componentDidMount() {
@@ -12,7 +12,7 @@ export class MyReduxPage extends Component {
     this.unsubscribe();
   }
 
-  handleAdd = () => store.dispatch({ type: "ADD", payload: 100 });
+  handleAdd = () => store.dispatch({ type: 'ADD', payload: 100 });
 
   handleAsyncAdd = () => {
     // // 用 setTimeout 模拟 ajax 请求
@@ -24,20 +24,20 @@ export class MyReduxPage extends Component {
     // 2、将数据请求函数抽出去，让 store.dispatch 直接调用，这样就可以将数据请求与视图渲染分离开
     store.dispatch((dispatch) => {
       setTimeout(() => {
-        dispatch({ type: "ADD", payload: 100 });
+        dispatch({ type: 'ADD', payload: 100 });
       }, 1000);
     });
   };
 
   handlePromiseAdd = () => {
     store.dispatch({
-      type: "ADD",
+      type: 'ADD',
       payload: Promise.resolve(100),
     });
   };
 
   setNum = () => {
-    store.dispatch({ type: "ADD2", payload: 10 });
+    store.dispatch({ type: 'ADD2', payload: 10 });
   };
 
   render() {
@@ -69,15 +69,15 @@ export class MyReduxPage extends Component {
 }
 
 // const f1 = (arg) => {
-//   console.log("f1", arg);
+//   console.log('f1', arg);
 //   return arg;
 // };
 // const f2 = (arg) => {
-//   console.log("f2", arg);
+//   console.log('f2', arg);
 //   return arg;
 // };
 // const f3 = (arg) => {
-//   console.log("f3", arg);
+//   console.log('f3', arg);
 //   return arg;
 // };
 
@@ -92,5 +92,5 @@ export class MyReduxPage extends Component {
 //         a(b(...arg))
 //   );
 // };
-// console.log(compose(f1)("omg"));
-// console.log(compose(f1, f2, f3)("omg")); // f1(f2(f3(...arg)))
+// console.log(compose(f1)('omg'));
+// console.log(compose(f1, f2, f3)('omg')); // f1(f2(f3(...arg)))
