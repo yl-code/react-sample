@@ -26,6 +26,7 @@ import {
   Prompt,
   Redirect,
   Route,
+  RouteGuard,
   Switch,
   useHistory,
   useLocation,
@@ -38,7 +39,7 @@ export function RouterDemo() {
   // 用于验证 NavLink 与 Link 组件的 forwardRef 转发是否成功
   const navLinkRef = useRef();
   useEffect(() => {
-    console.log(navLinkRef);
+    // console.log(navLinkRef);
   }, []);
 
   // 用于更新组件
@@ -136,7 +137,10 @@ class User extends Component {
       <div>
         <h3>user Page: {`${this.props.flag}`}</h3>
         <Link to='/'>首页</Link>
-        <Prompt when={this.props.flag} message='确定要离开 user 页面吗？' />
+
+        {/* <Prompt when={this.props.flag} message='确定要离开 user 页面吗？' /> */}
+
+        <RouteGuard when={this.props.flag} />
 
         <OtherCom />
       </div>
