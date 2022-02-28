@@ -1,10 +1,9 @@
-import React from "react";
-import { createHashHistory } from "history";
-import { Router } from "./Router";
+import React, { useMemo } from 'react';
+import { createHashHistory } from 'history';
+import { Router } from './Router';
 
 export function HashRouter({ children }) {
-  // 与 BrowserRouter 只有这个 API 不一样
-  const history = createHashHistory();
+  let history = useMemo(() => createHashHistory(), []);
 
-  return <Router history={history}>{children}</Router>;
+  return <Router history={history} children={children} />;
 }

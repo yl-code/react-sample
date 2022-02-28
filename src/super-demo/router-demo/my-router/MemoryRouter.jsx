@@ -1,6 +1,6 @@
-import React from "react";
-import { createMemoryHistory } from "history";
-import { Router } from "./Router";
+import React, { useRef } from 'react';
+import { createMemoryHistory } from 'history';
+import { Router } from './Router';
 
 /**
  *
@@ -11,7 +11,8 @@ import { Router } from "./Router";
  */
 export function MemoryRouter({ children }) {
   // 与 BrowserRouter 只有这个 API 不一样
-  const history = createMemoryHistory();
+  const historyRef = useRef(createMemoryHistory());
+  const history = historyRef.current;
 
   return <Router history={history}>{children}</Router>;
 }

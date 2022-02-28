@@ -1,9 +1,9 @@
-import React, { Component, useEffect, useRef, useState } from "react";
+import React, { Component, useEffect, useRef, useState } from 'react';
 
 // import {
 //   // BrowserRouter as Router,
-//   HashRouter as Router,
-//   // MemoryRouter as Router,
+//   // HashRouter as Router,
+//   MemoryRouter as Router,
 //   Link,
 //   NavLink,
 //   Prompt,
@@ -15,11 +15,11 @@ import React, { Component, useEffect, useRef, useState } from "react";
 //   useParams,
 //   useRouteMatch,
 //   withRouter,
-// } from "react-router-dom";
+// } from 'react-router-dom';
 
 import {
-  // BrowserRouter as Router,
-  HashRouter as Router,
+  BrowserRouter as Router,
+  // HashRouter as Router,
   // MemoryRouter as Router,
   Link,
   NavLink,
@@ -32,18 +32,18 @@ import {
   useParams,
   useRouteMatch,
   withRouter,
-} from "./my-router";
+} from './my-router';
 
 export function RouterDemo() {
   // 用于验证 NavLink 与 Link 组件的 forwardRef 转发是否成功
   const navLinkRef = useRef();
   useEffect(() => {
-    // console.log(navLinkRef);
+    console.log(navLinkRef);
   }, []);
 
   // 用于更新组件
   const [num, setNum] = useState(1);
-  if (num > 3) {
+  if (num > 10) {
     return <div>num &gt; 3</div>;
   }
 
@@ -56,15 +56,15 @@ export function RouterDemo() {
           <Link to="/">首页</Link> | <Link to="/user">用户</Link> |
           <Link to="/car/123">车</Link> 
         */}
-        <NavLink to="/">首页</NavLink> | <NavLink to="/user">用户</NavLink> |
-        <NavLink to="/car/123" ref={navLinkRef} activeClassName="active-class">
+        <NavLink to='/'>首页</NavLink> | <NavLink to='/user'>用户</NavLink> |
+        <NavLink to='/car/123' ref={navLinkRef} activeClassName='active-class'>
           车
         </NavLink>
         <hr />
         <Switch>
           <Route
             exact
-            path="/"
+            path='/'
             // children={<Home mode="children" />}
             // children={() => <Home mode="children func" />}
             //
@@ -76,10 +76,10 @@ export function RouterDemo() {
           />
           <Route
             exact
-            path="/user"
+            path='/user'
             render={(props) => <User {...props} flag={num % 2 === 1} />}
           />
-          <Route path="/car/:id" render={() => <Car />} />
+          <Route path='/car/:id' render={() => <Car />} />
           <Route component={NotFound} />
         </Switch>
       </Router>
@@ -90,24 +90,26 @@ export function RouterDemo() {
 //////////////////////////////////////////////////////////////////////////////////
 
 class Home extends Component {
-  componentDidMount() {
-    console.log("home did mount");
-  }
+  // componentDidMount() {
+  //   console.log("home did mount");
+  // }
 
-  componentDidUpdate() {
-    console.log("home did update");
-  }
+  // componentDidUpdate() {
+  //   console.log("home did update");
+  // }
 
-  componentWillUnmount() {
-    console.log("home will unmount");
-  }
+  // componentWillUnmount() {
+  //   console.log("home will unmount");
+  // }
 
   render() {
     // 测试 Redirect 组件功能，直接重定向到 /welcome
     // 由于没有定义 /welcome 路径，所以页面会渲染 404 组件
-    return <Redirect to="/welcome" />;
+    // if (true) {
+    //   return <Redirect to='/welcome' />;
+    // }
 
-    const { mode = "component" } = this.props;
+    const { mode = 'component' } = this.props;
     return <h3>home Page: {mode}</h3>;
   }
 }
@@ -133,8 +135,8 @@ class User extends Component {
     return (
       <div>
         <h3>user Page: {`${this.props.flag}`}</h3>
-        <Link to="/">首页</Link>
-        <Prompt when={this.props.flag} message="确定要离开 user 页面吗？" />
+        <Link to='/'>首页</Link>
+        <Prompt when={this.props.flag} message='确定要离开 user 页面吗？' />
 
         <OtherCom />
       </div>
@@ -178,8 +180,8 @@ function Car() {
     <div>
       <h3>car Page -- id: {params.id}</h3>
       <hr />
-      <Link to={match.url + "/detail"}>嵌套路由 Detail</Link>
-      <Route path={match.url + "/detail"} component={Detail} />
+      <Link to={match.url + '/detail'}>嵌套路由 Detail</Link>
+      <Route path={match.url + '/detail'} component={Detail} />
     </div>
   );
 }

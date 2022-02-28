@@ -21,7 +21,7 @@ export class Router extends Component {
     this.unListen = props.history.listen((location) => {
       this.setState({ location });
 
-      console.log("route change");
+      // console.log("route change");
     });
   }
 
