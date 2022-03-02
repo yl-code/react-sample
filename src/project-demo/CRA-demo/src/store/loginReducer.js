@@ -3,16 +3,16 @@ import {
   LOGIN_SUCCESS,
   LOGOUT_SUCCESS,
   REQUEST,
-} from "../action";
+} from '../action';
 
 const userState = {
   isLogin: false,
-  userInfo: { id: "", name: "", score: 0 },
+  userInfo: { id: '', name: '', score: 0 },
   loading: false,
-  err: { msg: "" },
+  err: { msg: '' },
 };
 
-console.log("store init");
+// console.log("store init");
 
 export const loginReducer = (state = { ...userState }, { type, payload }) => {
   switch (type) {

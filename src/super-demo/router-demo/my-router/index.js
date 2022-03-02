@@ -9,4 +9,5 @@ export * from './withRouter';
 export * from './Redirect';
 export * from './Prompt';
 
-export * from './RouteGuard/RouteGuard';
+export * from './RouteGuard/RouteGuardFunc';
+export * from './RouteGuard/RouteGuardClass';

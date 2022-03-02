@@ -26,7 +26,8 @@ import {
   Prompt,
   Redirect,
   Route,
-  RouteGuard,
+  RouteGuardFunc,
+  RouteGuardClass,
   Switch,
   useHistory,
   useLocation,
@@ -140,7 +141,8 @@ class User extends Component {
 
         {/* <Prompt when={this.props.flag} message='确定要离开 user 页面吗？' /> */}
 
-        <RouteGuard when={this.props.flag} />
+        <RouteGuardFunc when={this.props.flag} />
+        {/* <RouteGuardClass when={this.props.flag} /> */}
 
         <OtherCom />
       </div>
