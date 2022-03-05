@@ -7,14 +7,15 @@ import { Placement } from './utils';
 /**
  * fiber 的结构
  *
- * type  标记节点类型
- * key  标记节点在当前层级下的唯一性
- * props  节点的属性
- * index  标记当前层级下的位置
- * child  第一个子节点
- * sibling 下一个兄弟节点
- * return 父节点
- * stateNode 如果组件是原生标签，则是 dom 节点，如果是类组件则是类的实例
+ * type：标记节点类型
+ * key：标记节点在当前层级下的唯一性
+ * props：节点的属性
+ * index：标记节点在当前层级下的位置
+ * child：指向第一个子 fiber 节点
+ * sibling：指向下一个兄弟 fiber 节点
+ * return：指向父 fiber 节点
+ * stateNode：如果组件是原生标签，则指向 dom 节点，如果是类组件，则指向类的实例
+ * flags：表示当前 fiber 节点需要进行什么操作，如：删除、插入、更新
  */
 export function createFiber(vnode, returnFiber) {
   const newFiber = {

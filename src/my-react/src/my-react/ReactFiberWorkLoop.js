@@ -1,12 +1,17 @@
 /**
  * 处理 fiber 节点的更新
  *
- * wip: work in progress
+ * 名词解释：
+ * wip === work in progress
  *
  */
 
-import { updateHostComponent } from './ReactFiberReconciler';
-import { isStr } from './utils';
+import {
+  updateFragmentComponent,
+  updateFunctionComponent,
+  updateHostComponent,
+} from './ReactFiberReconciler';
+import { isFn, isStr } from './utils';
 
 let wipRoot = null;
 let nextUnitOfWork = null; // 就是下一个 fiber 节点
@@ -18,6 +23,7 @@ export function scheduleUpdateOnFiber(fiber) {
 }
 
 /**
+ * 更新整个 fiber 链表
  *
  * @param {*} wip 接收当前需要更新的 fiber 节点
  * @returns 返回下一个需要更新的 fiber 节点
@@ -29,7 +35,11 @@ function preformUnitOfWork(wip) {
     case isStr(type):
       updateHostComponent(wip);
       break;
+    case isFn(type):
+      updateFunctionComponent(wip);
+      break;
     default:
+      updateFragmentComponent(wip);
       break;
   }
 
@@ -64,11 +74,14 @@ function preformUnitOfWork(wip) {
 }
 
 function workLoop(IdleDeadline) {
+  // 1、更新 fiber
   // 还有下一个任务 && 浏览器处于空闲时期，则执行 preformUnitOfWork
   while (nextUnitOfWork && IdleDeadline.timeRemaining() > 0) {
     nextUnitOfWork = preformUnitOfWork(nextUnitOfWork);
   }
 
+  // 2、提交 fiber
+  // fiber 是一个链表结构，所以在更新完之后，只用提交根节点即可
   if (!nextUnitOfWork && wipRoot) {
     commitRoot();
   }
@@ -80,3 +93,56 @@ function workLoop(IdleDeadline) {
  * 该方法接收一个回掉函数，回掉函数会在浏览器空闲时期被执行
  */
 requestIdleCallback(workLoop);
+
+/**
+ * 提交 fiber
+ *
+ * wipRoot 是 container
+ * container 不需要更新，所以从他的 child 开始提交
+ * 提交完之后，将 wipRoot 置为 null，防止多次提交
+ */
+function commitRoot() {
+  commitWork(wipRoot.child);
+
+  wipRoot = null;
+}
+
+/**
+ * 真正开始提交更新的函数，递归提交
+ *
+ * @param {*} wip 接收的 fiber 节点
+ */
+function commitWork(wip) {
+  if (!wip) return false;
+
+  // 1、提交当前节点
+  const { stateNode } = wip;
+
+  // fiber 节点可能没有父级 dom 节点，比如函数组件、类组件，所以不能直接这么写
+  // const parentNode = wip.return.stateNode;
+  const parentNode = getParentNode(wip.return);
+
+  stateNode && parentNode.appendChild(stateNode);
+
+  // 2、提交子节点
+  commitWork(wip.child);
+
+  // 3、提交兄弟节点
+  commitWork(wip.sibling);
+}
+
+/**
+ * 查找父级 dom 节点
+ *
+ * @param {*} fiber 接收 fiber 节点
+ * @returns 返回 dom 节点
+ */
+function getParentNode(fiber) {
+  while (fiber) {
+    if (fiber.stateNode) {
+      return fiber.stateNode;
+    }
+
+    fiber = fiber.return;
+  }
+}

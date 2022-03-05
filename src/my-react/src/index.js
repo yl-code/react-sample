@@ -2,13 +2,13 @@ import './index.css';
 
 import { ReactDOM } from './my-react/ReactDOM';
 
-// function FuncComponent({ name }) {
-//   return (
-//     <div className='border'>
-//       <p>{name}</p>
-//     </div>
-//   );
-// }
+function FuncComponent({ name }) {
+  return (
+    <div className='border'>
+      <p>{name}</p>
+    </div>
+  );
+}
 
 // class ClassComponent extends Component {
 //   render() {
@@ -26,8 +26,13 @@ const jsx = (
     <h1>my-react</h1>
     <a href='/'>link</a>
 
-    {/* <FuncComponent name='function' /> */}
+    <FuncComponent name='function' />
     {/* <ClassComponent name='class' /> */}
+
+    <>
+      <h1>fragment tag h1</h1>
+      <h2>fragment tag h2</h2>
+    </>
   </div>
 );
 
