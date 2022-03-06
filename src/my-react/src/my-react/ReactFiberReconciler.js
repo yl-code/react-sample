@@ -7,7 +7,7 @@ import { isArray, isStr, updateNode } from './utils';
  * @param {*} wip 接收一个 fiber 节点
  */
 export function updateHostComponent(wip) {
-  // 如果没有 stateNode，也就是当前 fiber 的原生节点，就表示当前是初次渲染
+  // 如果没有 stateNode，也就是没有当前 fiber 的原生节点，就表示当前是初次渲染
   // 需要给它创建一个 stateNode
   if (!wip.stateNode) {
     wip.stateNode = document.createElement(wip.type);
@@ -74,7 +74,7 @@ function reconcileChildren(returnFiber, children) {
 
     const newFiber = createFiber(newChild, returnFiber); // 创建一个 fiber 节点
 
-    if (i === 0) {
+    if (previousNewFiber === null) {
       // 第一轮创建的 fiber 节点，是 returnFiber(父 fiber)节点的第一个子节点
       returnFiber.child = newFiber;
     } else {
