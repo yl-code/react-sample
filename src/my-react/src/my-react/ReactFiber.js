@@ -14,7 +14,7 @@ import { Placement } from './utils';
  * child：指向第一个子 fiber 节点
  * sibling：指向下一个兄弟 fiber 节点
  * return：指向父 fiber 节点
- * stateNode：如果组件是原生标签，则指向 dom 节点，如果是类组件，则指向类的实例
+ * stateNode：如果组件是原生标签，则指向该 dom 节点，如果是类组件，则指向该类的实例
  * flags：表示当前 fiber 节点需要进行什么操作，如：删除、插入、更新
  */
 export function createFiber(vnode, returnFiber) {

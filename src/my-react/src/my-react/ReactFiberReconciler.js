@@ -17,7 +17,7 @@ export function updateHostComponent(wip) {
 
   reconcileChildren(wip, wip.props.children);
 
-  console.log('--- wip ---', wip);
+  // console.log('--- wip ---', wip);
 }
 
 /**
@@ -36,6 +36,19 @@ export function updateFragmentComponent(wip) {
  */
 export function updateFunctionComponent(wip) {
   const children = wip.type(wip.props);
+
+  reconcileChildren(wip, children);
+}
+
+/**
+ * 更新函数组件
+ *
+ * @param {*} wip 接收一个 fiber 节点
+ */
+export function updateClassComponent(wip) {
+  const { props, type } = wip;
+  const instance = new type(props);
+  const children = instance.render();
 
   reconcileChildren(wip, children);
 }

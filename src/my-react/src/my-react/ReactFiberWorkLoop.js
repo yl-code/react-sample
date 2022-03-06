@@ -7,6 +7,7 @@
  */
 
 import {
+  updateClassComponent,
   updateFragmentComponent,
   updateFunctionComponent,
   updateHostComponent,
@@ -36,7 +37,12 @@ function preformUnitOfWork(wip) {
       updateHostComponent(wip);
       break;
     case isFn(type):
-      updateFunctionComponent(wip);
+      if (type.prototype.isReactComponent) {
+        updateClassComponent(wip);
+      } else {
+        updateFunctionComponent(wip);
+      }
+
       break;
     default:
       updateFragmentComponent(wip);

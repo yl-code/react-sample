@@ -1,6 +1,6 @@
 import { scheduleUpdateOnFiber } from './ReactFiberWorkLoop';
 
-// 将 vDOM => DOM
+// 将 vDOM => fiber => DOM
 function render(element, container) {
   // console.log(element, container);
 

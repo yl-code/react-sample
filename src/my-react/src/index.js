@@ -1,6 +1,5 @@
 import './index.css';
-
-import { ReactDOM } from './my-react/ReactDOM';
+import { Component, ReactDOM } from './my-react';
 
 function FuncComponent({ name }) {
   return (
@@ -10,24 +9,24 @@ function FuncComponent({ name }) {
   );
 }
 
-// class ClassComponent extends Component {
-//   render() {
-//     const { name } = this.props;
-//     return (
-//       <div className='border'>
-//         <p>{name}</p>
-//       </div>
-//     );
-//   }
-// }
+class ClassComponent extends Component {
+  render() {
+    const { name } = this.props;
+    return (
+      <div className='border'>
+        <p>{name}</p>
+      </div>
+    );
+  }
+}
 
 const jsx = (
   <div className='border'>
     <h1>my-react</h1>
     <a href='/'>link</a>
 
-    <FuncComponent name='function' />
-    {/* <ClassComponent name='class' /> */}
+    <FuncComponent name='function component' />
+    <ClassComponent name='class component' />
 
     <>
       <h1>fragment tag h1</h1>
