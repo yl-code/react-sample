@@ -98,7 +98,9 @@ function workLoop(IdleDeadline) {
  * 这里使用 window.requestIdleCallback 进行模拟
  * 该方法接收一个回掉函数，回掉函数会在浏览器空闲时期被执行
  */
-requestIdleCallback(workLoop);
+// requestIdleCallback(workLoop);
+
+// 使用调度库 scheduler.js
 
 /**
  * 提交 fiber
