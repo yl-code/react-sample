@@ -21,10 +21,26 @@ export function scheduleCallback(callback) {
   taskQueue.push(newTask);
 
   // 进行任务调度
-  schedule(taskQueue);
+  schedule(flushWork);
 }
 
-export function schedule() {}
+function schedule(callback) {
+  timerQueue.push(callback);
+  postMessage();
+}
+
+// MessageChannel 代表的是宏任务，在这里执行 timerQueue 中的任务
+const postMessage = () => {
+  const { port1, port2 } = new MessageChannel();
+
+  port1.onmessage = () => {
+    // 将 timerQueue 中的任务取出来
+    const taskTemp = timerQueue.splice(0, timerQueue.length);
+
+    taskTemp.forEach((task) => task());
+  };
+  port2.postMessage(null);
+};
 
 /**
  * 执行任务
@@ -33,6 +49,7 @@ function flushWork() {
   expirationTime = getCurrentTime() + timeout;
 
   let currentTask = taskQueue[0];
+  // 如果还有任务，并且时间切片的时间还没用完，就可以执行任务
   while (currentTask && !shouldYield()) {
     const { callback } = currentTask;
     callback();
@@ -43,9 +60,9 @@ function flushWork() {
 }
 
 /**
- * 若 当前时间 大于等于 过期时间，则返回 true，表示任务过期
+ * 若 当前时间 大于等于 过期时间，则返回 true，表示时间切片的时间已用完
  */
-function shouldYield() {
+export function shouldYield() {
   return getCurrentTime() >= expirationTime;
 }
 

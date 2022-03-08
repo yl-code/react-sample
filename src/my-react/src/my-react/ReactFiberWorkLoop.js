@@ -12,6 +12,7 @@ import {
   updateFunctionComponent,
   updateHostComponent,
 } from './ReactFiberReconciler';
+import { scheduleCallback, shouldYield } from './Scheduler';
 import { isFn, isStr } from './utils';
 
 let wipRoot = null;
@@ -21,6 +22,8 @@ let nextUnitOfWork = null; // 就是下一个 fiber 节点
 export function scheduleUpdateOnFiber(fiber) {
   wipRoot = fiber;
   nextUnitOfWork = fiber;
+
+  scheduleCallback(workLoop);
 }
 
 /**
@@ -79,10 +82,31 @@ function preformUnitOfWork(wip) {
   return null;
 }
 
-function workLoop(IdleDeadline) {
+/**
+ * 任务调度，react 中实现了一个调度库，来根据任务的优先级，来进行调度
+ * 这里使用 window.requestIdleCallback 进行模拟
+ * 该方法接收一个回掉函数，回掉函数会在浏览器空闲时期被执行
+ */
+// requestIdleCallback(workLoop);
+//
+// function workLoop(IdleDeadline) {
+//   // 1、更新 fiber
+//   // 还有下一个任务 && 浏览器处于空闲时期，则执行 preformUnitOfWork
+//   while (nextUnitOfWork && IdleDeadline.timeRemaining() > 0) {
+//     nextUnitOfWork = preformUnitOfWork(nextUnitOfWork);
+//   }
+
+//   // 2、提交 fiber
+//   // fiber 是一个链表结构，所以在更新完之后，只用提交根节点即可
+//   if (!nextUnitOfWork && wipRoot) {
+//     commitRoot();
+//   }
+// }
+
+function workLoop() {
   // 1、更新 fiber
-  // 还有下一个任务 && 浏览器处于空闲时期，则执行 preformUnitOfWork
-  while (nextUnitOfWork && IdleDeadline.timeRemaining() > 0) {
+  // 还有下一个任务 && 时间切片还有余量，则可以执行 preformUnitOfWork
+  while (nextUnitOfWork && !shouldYield()) {
     nextUnitOfWork = preformUnitOfWork(nextUnitOfWork);
   }
 
@@ -92,15 +116,6 @@ function workLoop(IdleDeadline) {
     commitRoot();
   }
 }
-
-/**
- * 任务调度，react 中实现了一个调度库，来根据任务的优先级，来进行调度
- * 这里使用 window.requestIdleCallback 进行模拟
- * 该方法接收一个回掉函数，回掉函数会在浏览器空闲时期被执行
- */
-// requestIdleCallback(workLoop);
-
-// 使用调度库 scheduler.js
 
 /**
  * 提交 fiber
