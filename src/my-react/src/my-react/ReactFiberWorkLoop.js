@@ -13,17 +13,57 @@ import {
   updateHostComponent,
 } from './ReactFiberReconciler';
 import { scheduleCallback, shouldYield } from './Scheduler';
-import { isFn, isStr } from './utils';
+import { isFn, isStr, isSymbol, Placement, Update, updateNode } from './utils';
 
 let wipRoot = null;
 let nextUnitOfWork = null; // 就是下一个 fiber 节点
 
 //  fiber 的更新会走到这个方法
 export function scheduleUpdateOnFiber(fiber) {
+  fiber.alternate = { ...fiber };
+
   wipRoot = fiber;
   nextUnitOfWork = fiber;
 
+  /**
+   * 任务调度，react 中实现了一个调度库，来根据任务的优先级，来进行调度
+   * 这里使用 window.requestIdleCallback 进行模拟
+   * 该方法接收一个回掉函数，回掉函数会在浏览器空闲时期被执行
+   */
+  // window.requestIdleCallback(workLoop);
+
+  // 下面是实现的简版调度库 Scheduler
   scheduleCallback(workLoop);
+}
+
+// // workLoop 1
+// function workLoop(IdleDeadline) {
+//   // 1、更新 fiber
+//   // 还有下一个任务 && 浏览器处于空闲时期，则执行 preformUnitOfWork
+//   while (nextUnitOfWork && IdleDeadline.timeRemaining() > 0) {
+//     nextUnitOfWork = preformUnitOfWork(nextUnitOfWork);
+//   }
+
+//   // 2、提交 fiber
+//   // fiber 是一个链表结构，所以在协调完成之后，只用提交根节点即可
+//   if (!nextUnitOfWork && wipRoot) {
+//     commitRoot();
+//   }
+// }
+
+// // workLoop 2
+function workLoop() {
+  // 1、更新 fiber
+  // 还有下一个任务 && 时间切片还有余量，则可以执行 preformUnitOfWork
+  while (nextUnitOfWork && !shouldYield()) {
+    nextUnitOfWork = preformUnitOfWork(nextUnitOfWork);
+  }
+
+  // 2、提交 fiber
+  // fiber 是一个链表结构，所以在协调完成之后，只用提交根节点即可
+  if (!nextUnitOfWork && wipRoot) {
+    commitRoot();
+  }
 }
 
 /**
@@ -47,8 +87,10 @@ function preformUnitOfWork(wip) {
       }
 
       break;
-    default:
+    case isSymbol(type): // 粗略判断 Fragment 的类型
       updateFragmentComponent(wip);
+      break;
+    default:
       break;
   }
 
@@ -83,41 +125,6 @@ function preformUnitOfWork(wip) {
 }
 
 /**
- * 任务调度，react 中实现了一个调度库，来根据任务的优先级，来进行调度
- * 这里使用 window.requestIdleCallback 进行模拟
- * 该方法接收一个回掉函数，回掉函数会在浏览器空闲时期被执行
- */
-// requestIdleCallback(workLoop);
-//
-// function workLoop(IdleDeadline) {
-//   // 1、更新 fiber
-//   // 还有下一个任务 && 浏览器处于空闲时期，则执行 preformUnitOfWork
-//   while (nextUnitOfWork && IdleDeadline.timeRemaining() > 0) {
-//     nextUnitOfWork = preformUnitOfWork(nextUnitOfWork);
-//   }
-
-//   // 2、提交 fiber
-//   // fiber 是一个链表结构，所以在更新完之后，只用提交根节点即可
-//   if (!nextUnitOfWork && wipRoot) {
-//     commitRoot();
-//   }
-// }
-
-function workLoop() {
-  // 1、更新 fiber
-  // 还有下一个任务 && 时间切片还有余量，则可以执行 preformUnitOfWork
-  while (nextUnitOfWork && !shouldYield()) {
-    nextUnitOfWork = preformUnitOfWork(nextUnitOfWork);
-  }
-
-  // 2、提交 fiber
-  // fiber 是一个链表结构，所以在更新完之后，只用提交根节点即可
-  if (!nextUnitOfWork && wipRoot) {
-    commitRoot();
-  }
-}
-
-/**
  * 提交 fiber
  *
  * wipRoot 是 container
@@ -125,7 +132,9 @@ function workLoop() {
  * 提交完之后，将 wipRoot 置为 null，防止多次提交
  */
 function commitRoot() {
-  commitWork(wipRoot.child);
+  // commitWorker(wipRoot.child);
+
+  isFn(wipRoot.type) ? commitWorker(wipRoot) : commitWorker(wipRoot.child);
 
   wipRoot = null;
 }
@@ -135,23 +144,31 @@ function commitRoot() {
  *
  * @param {*} wip 接收的 fiber 节点
  */
-function commitWork(wip) {
+function commitWorker(wip) {
   if (!wip) return false;
 
   // 1、提交当前节点
-  const { stateNode } = wip;
+  const { stateNode, flags } = wip;
 
   // fiber 节点可能没有父级 dom 节点，比如函数组件、类组件，所以不能直接这么写
   // const parentNode = wip.return.stateNode;
   const parentNode = getParentNode(wip.return);
 
-  stateNode && parentNode.appendChild(stateNode);
+  if (flags & Placement && stateNode) {
+    // 新增
+    parentNode.appendChild(stateNode);
+  }
+
+  if (flags & Update && stateNode) {
+    // 更新
+    updateNode(stateNode, wip.alternate.props, wip.props);
+  }
 
   // 2、提交子节点
-  commitWork(wip.child);
+  commitWorker(wip.child);
 
   // 3、提交兄弟节点
-  commitWork(wip.sibling);
+  commitWorker(wip.sibling);
 }
 
 /**

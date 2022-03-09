@@ -16,6 +16,7 @@ import { Placement } from './utils';
  * return：指向父 fiber 节点
  * stateNode：如果组件是原生标签，则指向该 dom 节点，如果是类组件，则指向该类的实例
  * flags：表示当前 fiber 节点需要进行什么操作，如：删除、插入、更新
+ * alternate：指向更新之前的 fiber 节点
  */
 export function createFiber(vnode, returnFiber) {
   const newFiber = {
@@ -26,8 +27,8 @@ export function createFiber(vnode, returnFiber) {
     child: null,
     return: returnFiber,
     sibling: null,
-    alternate: null,
     flags: Placement,
+    alternate: null,
   };
 
   return newFiber;

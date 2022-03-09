@@ -37,7 +37,7 @@ const postMessage = () => {
     // 将 timerQueue 中的任务取出来
     const taskTemp = timerQueue.splice(0, timerQueue.length);
 
-    taskTemp.forEach((task) => task());
+    taskTemp.forEach((task) => task()); // 实际上之心的就是 flushWork
   };
   port2.postMessage(null);
 };
@@ -52,7 +52,7 @@ function flushWork() {
   // 如果还有任务，并且时间切片的时间还没用完，就可以执行任务
   while (currentTask && !shouldYield()) {
     const { callback } = currentTask;
-    callback();
+    callback(); // 实际上就是 workLoop
 
     taskQueue.shift();
     currentTask = taskQueue[0];
