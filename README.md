@@ -4,7 +4,7 @@
 
 - [my-redux](./src/super-demo/redux-demo/my-redux-page)
 
-- [my-react-redux](./src/super-demo/react-redux-demo/)
+- [my-react-redux](./src/super-demo/react-redux-demo)
 
 - [my-router](./src/super-demo/router-demo)
 
@@ -20,10 +20,10 @@
 
 - [context demo](./src/advance-demo/context-demo/)
 
-- [createPortal demo](./src/advance-demo/create-portal-demo/)
-
 - [react-router demo](./src/base-demo/router-demo/RouterDemo.jsx)
 
 - [redux demo](./src/base-demo/redux-demo/)
 
 - [react-redux demo](./src/base-demo/react-redux-demo/)
+
+- [createPortal demo](./src/advance-demo/create-portal-demo/)
