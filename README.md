@@ -2,15 +2,15 @@
 
 - [my-react](./src/my-react/src/)
 
-- [my-redux](./src/super-demo/redux-demo/my-redux-page/my-redux/)
+- [my-redux](./src/super-demo/redux-demo/my-redux-page)
 
-- [my-react-redux](./src/super-demo/react-redux-demo/react-redux-page/my-react-redux/)
+- [my-react-redux](./src/super-demo/react-redux-demo/)
 
-- [my-router](./src/super-demo/router-demo/my-router/)
+- [my-router](./src/super-demo/router-demo)
 
 - [my-rc-form](./src/advance-demo/rc-form-demo)
 
-- [my-rc-field-form](./src/super-demo/antd-demo)
+- [my-rc-field-form](./src/super-demo/rc-field-form-demo)
 
 ## Demo 系列
 
