@@ -1,12 +1,7 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
 
+// 使用 HOC 实现 rc-form
 export function createForm(Com) {
-  /**
-   * 这里需要返回一个组件
-   * 如果将 class 组件写在外面，然后在这里返回
-   * 那返回的就不是一个组件，是一个 jsx 对象
-   * 细品！！！
-   */
   return class extends Component {
     constructor(props) {
       super(props);
