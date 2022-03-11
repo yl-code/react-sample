@@ -1,10 +1,10 @@
-import React, { Component } from "react";
-import { createForm } from "rc-form";
-import { Input } from "./components/Input";
+import React, { Component } from 'react';
+import { createForm } from 'rc-form';
+import { Input } from './my-rc-form/Input';
 
 const rules = {
-  user: { required: true, message: "请输入用户名！" },
-  pwd: { required: true, message: "请输入密码！" },
+  user: { required: true, message: '请输入用户名！' },
+  pwd: { required: true, message: '请输入密码！' },
 };
 
 @createForm()
@@ -25,7 +25,7 @@ export class CreateFormDemo extends Component {
 
   componentDidMount() {
     const { form } = this.props;
-    form.setFieldsValue({ user: "defaultVal" });
+    form.setFieldsValue({ user: 'defaultVal' });
   }
 
   render() {
@@ -34,8 +34,8 @@ export class CreateFormDemo extends Component {
 
     return (
       <div>
-        {this.renderField("user")}
-        {this.renderField("pwd")}
+        {this.renderField('user')}
+        {this.renderField('pwd')}
         <button onClick={this.submit}>提交</button>
       </div>
     );
