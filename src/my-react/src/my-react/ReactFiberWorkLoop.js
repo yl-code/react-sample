@@ -13,7 +13,15 @@ import {
   updateHostComponent,
 } from './ReactFiberReconciler';
 import { scheduleCallback, shouldYield } from './Scheduler';
-import { isFn, isStr, isSymbol, Placement, Update, updateNode } from './utils';
+import {
+  HookLayout,
+  isFn,
+  isStr,
+  isSymbol,
+  Placement,
+  Update,
+  updateNode,
+} from './utils';
 
 let wipRoot = null;
 let nextUnitOfWork = null; // 就是下一个 fiber 节点
@@ -148,7 +156,7 @@ function commitWorker(wip) {
   if (!wip) return false;
 
   // 1、提交当前节点
-  const { stateNode, flags } = wip;
+  const { type, stateNode, flags } = wip;
 
   // fiber 节点可能没有父级 dom 节点，比如函数组件、类组件，所以不能直接这么写
   // const parentNode = wip.return.stateNode;
@@ -164,11 +172,29 @@ function commitWorker(wip) {
     updateNode(stateNode, wip.alternate.props, wip.props);
   }
 
+  if (isFn(type)) {
+    invokeHooks(wip);
+  }
+
   // 2、提交子节点
   commitWorker(wip.child);
 
   // 3、提交兄弟节点
   commitWorker(wip.sibling);
+}
+
+function invokeHooks(wip) {
+  const { updateQueue } = wip;
+
+  for (let i = 0; i < updateQueue.length; i++) {
+    const { create, hookFlags } = updateQueue[i];
+
+    if (hookFlags === HookLayout) {
+      create();
+    } else {
+      scheduleCallback(create);
+    }
+  }
 }
 
 /**

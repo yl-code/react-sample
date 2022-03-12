@@ -1,5 +1,12 @@
 import './index.css';
-import { ReactDOM, Component, useReducer, useState } from './my-react';
+import {
+  ReactDOM,
+  Component,
+  useReducer,
+  useState,
+  useEffect,
+  useLayoutEffect,
+} from './my-react';
 
 function FuncComponent({ name }) {
   const [num, setNum] = useReducer((x) => x + 1, 1);
@@ -7,10 +14,19 @@ function FuncComponent({ name }) {
   const [count, setCount] = useState(10);
   const [count2, setCount2] = useState(10);
 
+  useEffect(() => {
+    console.log('my useEffect exec with num: ', num);
+  }, [num]);
+
+  useLayoutEffect(() => {
+    console.log('my useLayoutEffect exec with count2: ', count2);
+  }, [count2]);
+
   console.log('FuncComponent render');
   return (
     <div className='border'>
       <p>{name}</p>
+
       <div className='border'>
         <p>
           <span>useReducer num: </span>
