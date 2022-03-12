@@ -28,20 +28,19 @@ function FuncComponent({ name }) {
     <div className='border'>
       <p>{name}</p>
 
-      <ul>
-        <li key='0'>0</li>
-        <li key='1'>1</li>
-        {num % 2 ? <li key='2'>2</li> : null}
-        <li key='3'>3</li>
-        <li key='4'>4</li>
-      </ul>
-
       <div className='border'>
         <p>
           <span>useReducer num: </span>
           <span>{num}</span>
         </p>
         <button onClick={setNum}>add num</button>
+        <ul>
+          <li key='0'>0</li>
+          <li key='1'>1</li>
+          {num % 2 ? <li key='2'>2</li> : null}
+          <li key='3'>3</li>
+          <li key='4'>4</li>
+        </ul>
       </div>
 
       <div className='border'>
@@ -94,6 +93,7 @@ const jsx = (
     <FuncComponent name='function component' />
     {/* <ClassComponent name='class component' /> */}
 
+    {/* fragment 还有点问题 */}
     {/* <>
       <h1>fragment tag h1</h1>
       <h2>fragment tag h2</h2>

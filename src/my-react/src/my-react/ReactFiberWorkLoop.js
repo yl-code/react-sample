@@ -95,9 +95,9 @@ function preformUnitOfWork(wip) {
       }
 
       break;
-    case isSymbol(type): // 粗略判断 Fragment 的类型
-      updateFragmentComponent(wip);
-      break;
+    // case isSymbol(type): // 粗略判断 Fragment 的类型
+    //   updateFragmentComponent(wip);
+    //   break;
     default:
       break;
   }
@@ -163,8 +163,14 @@ function commitWorker(wip) {
   const parentNode = getParentNode(wip.return);
 
   if (flags & Placement && stateNode) {
-    // 新增
-    parentNode.appendChild(stateNode);
+    let hasSiblingNode = foundSiblingNode(wip, parentNode);
+    if (hasSiblingNode) {
+      // 更新阶段的新增
+      parentNode.insertBefore(stateNode, hasSiblingNode);
+    } else {
+      // 初次渲染阶段的新增
+      parentNode.appendChild(stateNode);
+    }
   }
 
   if (flags & Update && stateNode) {
@@ -174,7 +180,7 @@ function commitWorker(wip) {
 
   if (Array.isArray(wip.deletions)) {
     // 删除
-    commitDeletions(wip.deletions, stateNode, parentNode);
+    commitDeletions(wip.deletions, stateNode || parentNode);
 
     wip.deletions = null;
   }
@@ -192,7 +198,9 @@ function commitWorker(wip) {
 
 function commitDeletions(deletions, parentNode) {
   deletions.forEach((childFiber) => {
-    parentNode.removeChild(getStateNode(childFiber));
+    // 删除 dom 节点的两种方式
+    // parentNode.removeChild(getStateNode(childFiber));
+    getStateNode(childFiber).remove();
   });
 }
 
@@ -234,4 +242,28 @@ function getParentNode(fiber) {
 
     fiber = fiber.return;
   }
+}
+
+/**
+ * 找到当前 fiber 节点的下一个存在的兄弟节点
+ * 并返回其 dom 对象
+ *
+ * @param {*} fiber 当前 fiber 节点
+ * @param {*} parentNode 当前 fiber 节点的父 dom
+ * @returns sibling dom
+ */
+function foundSiblingNode(fiber, parentNode) {
+  let siblingHasNode = fiber.sibling;
+  let node = null;
+  while (siblingHasNode) {
+    node = siblingHasNode.stateNode;
+
+    if (node && parentNode.contains(node)) {
+      return node;
+    }
+
+    siblingHasNode = siblingHasNode.sibling;
+  }
+
+  return null;
 }
