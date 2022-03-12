@@ -9,23 +9,32 @@ import {
 } from './my-react';
 
 function FuncComponent({ name }) {
-  const [num, setNum] = useReducer((x) => x + 1, 1);
+  const [num, setNum] = useReducer((x) => x + 1, 0);
 
   const [count, setCount] = useState(10);
   const [count2, setCount2] = useState(10);
 
-  useEffect(() => {
-    console.log('my useEffect exec with num: ', num);
-  }, [num]);
+  // useEffect(() => {
+  //   console.log('my useEffect exec with num: ', num);
+  // }, [num]);
 
-  useLayoutEffect(() => {
-    console.log('my useLayoutEffect exec with count2: ', count2);
-  }, [count2]);
+  // useLayoutEffect(() => {
+  //   console.log('my useLayoutEffect exec with count2: ', count2);
+  // }, [count2]);
 
-  console.log('FuncComponent render');
+  // console.log('FuncComponent render');
+
   return (
     <div className='border'>
       <p>{name}</p>
+
+      <ul>
+        <li key='0'>0</li>
+        <li key='1'>1</li>
+        {num % 2 ? <li key='2'>2</li> : null}
+        <li key='3'>3</li>
+        <li key='4'>4</li>
+      </ul>
 
       <div className='border'>
         <p>
